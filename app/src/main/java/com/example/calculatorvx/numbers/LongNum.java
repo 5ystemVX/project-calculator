@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 /**
  * 用于表示超出int上限的超长num的类
  */
-public class LongNum {
+public class LongNum extends ExpressionUnit {
     /**
      * strLiteralValue<br>
-     * 超长数的字面量,无正负号，无小数点<br>
+     * 超长数的有效数字,无正负号，无小数点<br>
      * eg："12345678987654321"<br>
      */
     private String strLiteralValue = "0";
@@ -19,7 +19,7 @@ public class LongNum {
     private boolean blnIsNegative = false;
     /**
      * intDecimalDigitCount<br>
-     * 小数点后位数，值为0表示整数<br>
+     * 小数点后位数，值<=0表示整数<br>
      */
     private int intDecimalDigitCount = 0;
 
@@ -94,6 +94,11 @@ public class LongNum {
                 this.intDecimalDigitCount = 0;
                 this.strLiteralValue = dummy.replaceAll("^0*", "");
             }
+            //正规化
+            while (strLiteralValue.endsWith("0")) {
+                intDecimalDigitCount--;
+                strLiteralValue = strLiteralValue.substring(0, strLiteralValue.length() - 1);
+            }
             return true;
         } else if (Pattern.matches(patternPack[2], dummy)) {
             //处理科学计数法
@@ -108,12 +113,8 @@ public class LongNum {
                 this.intDecimalDigitCount = -exponent;
                 this.strLiteralValue = parts[0].replaceAll("^0*", "");
             }
-            //正规化，显示所有数位
-            while (intDecimalDigitCount < 0) {
-                intDecimalDigitCount++;
-                strLiteralValue = strLiteralValue.concat("0");
-            }
-            while (intDecimalDigitCount > 0 && strLiteralValue.endsWith("0")) {
+            //正规化
+            while (strLiteralValue.endsWith("0")) {
                 intDecimalDigitCount--;
                 strLiteralValue = strLiteralValue.substring(0, strLiteralValue.length() - 1);
             }
@@ -131,17 +132,18 @@ public class LongNum {
         System.out.println(blnIsNegative);
     }
 
-    public String printValue(boolean in_science) {
-        StringBuilder resultBuilder = new StringBuilder();
+    public String toString(boolean in_science) {
+
         if (strLiteralValue.equals("0"))
             return "0";
-
+        StringBuilder temp = new StringBuilder();
+        StringBuilder resultBuilder = new StringBuilder();
         if (blnIsNegative) {
             resultBuilder.append('-');
         }
         if (in_science) {
             resultBuilder.append(strLiteralValue.substring(0, 1));
-            if (strLiteralValue.length() > 1) {
+            if (temp.length() > 1) {
                 resultBuilder.append('.');
                 resultBuilder.append(strLiteralValue.substring(1).replaceAll("0*$", ""));
             }
@@ -150,15 +152,25 @@ public class LongNum {
             resultBuilder.append(exponent);
 
             return resultBuilder.toString();
-        } else {
-            if (DigitCount() - intDecimalDigitCount == 0) {
-                resultBuilder.append(0);
+        } else {//
+            //前后补0
+            for (int i = 0; i < intDecimalDigitCount - DigitCount() + 1; i++) {
+                temp.append('0');
             }
-            resultBuilder.append(strLiteralValue.substring(0, DigitCount() - intDecimalDigitCount));
-            if (intDecimalDigitCount > 0) {
+            temp.append(strLiteralValue);
+            for (int i = 0; i < -intDecimalDigitCount; i++) {
+                temp.append('0');
+            }
+            String finalvalue = temp.toString();
+
+            if (intDecimalDigitCount <= 0) {
+                resultBuilder.append(finalvalue);
+            } else {
+                resultBuilder.append(finalvalue.substring(0, finalvalue.length() - intDecimalDigitCount));
                 resultBuilder.append('.');
-                resultBuilder.append(strLiteralValue.substring(DigitCount() - intDecimalDigitCount));
+                resultBuilder.append(finalvalue.substring(finalvalue.length() - intDecimalDigitCount));
             }
+
             return resultBuilder.toString();
         }
     }
