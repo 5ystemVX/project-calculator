@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 /**
  * 用于表示超出int上限的超长num的类
  */
-public class LongNum extends ExpressionUnit {
+public class LongNum extends ExpressionUnit implements ExpressionUnitInterface {
     /**
      * strLiteralValue<br>
      * 超长数的有效数字,无正负号，无小数点<br>
@@ -241,5 +241,15 @@ public class LongNum extends ExpressionUnit {
         if (!a.strLiteralValue.equals("0"))
             a.blnIsNegative = !a.blnIsNegative;
         return a;
+    }
+
+    @Override
+    public ExpressionUnit deepCopy() {
+        return LongNum.deepCopy(this);
+    }
+
+    @Override
+    public ExpressionUnit simplify() {
+        return this;
     }
 }
