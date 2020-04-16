@@ -1,5 +1,6 @@
 package com.example.calculatorvx.numbers;
 
+import java.security.spec.InvalidParameterSpecException;
 import java.util.regex.Pattern;
 
 /**
@@ -41,6 +42,12 @@ public class LongNum extends ExpressionUnit {
     }
 
     /**
+     * 默认构造函数,赋值为0
+     */
+    public LongNum() {
+    }
+
+    /**
      * 为超长数字赋值<br>
      *
      * @param value 字面值
@@ -74,9 +81,9 @@ public class LongNum extends ExpressionUnit {
         }
 
         String[] patternPack = {    //合法字符串的格式
-                "^(0+)|(0*\\.0+)$",
-                "^(\\d+)|(\\d*\\.\\d+)$",// -123  ， -123.456
-                "^((\\d+)|(\\d*\\.\\d+))[eE]-?\\d+$" //123.456e6
+                "^(0+)|(0*\\.0+)$",//00.0
+                "^(\\d+)|(\\d*\\.\\d+)$",//-123，-123.456
+                "^((\\d+)|(\\d*\\.\\d+))[eE]-?\\d+$" //123.456E7
         };
 
         if (Pattern.matches(patternPack[0], dummy)) {
@@ -122,16 +129,36 @@ public class LongNum extends ExpressionUnit {
         } else {
             return false;
         }
-
     }
 
-    public void debugDump() {
-        System.out.println(strLiteralValue);
-        System.out.println(DigitCount());
-        System.out.println(intDecimalDigitCount);
-        System.out.println(blnIsNegative);
+    /**
+     * 测试用方法
+     *
+     * @return 含有所有内部变量值的字符串
+     */
+    public String debugDump() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("LiteralValue-");
+        if (blnIsNegative) {
+            builder.append('-');
+        }
+        builder.append(strLiteralValue);
+        builder.append(",DecimalDigitCount-");
+        builder.append(intDecimalDigitCount);
+        return builder.toString();
     }
 
+    @Override
+    public String toString() {
+        return this.toString(false);
+    }
+
+    /**
+     * 字符化输出
+     *
+     * @param in_science 是否以科学计数法的形式输出
+     * @return 字符化输出
+     */
     public String toString(boolean in_science) {
 
         if (strLiteralValue.equals("0"))
@@ -173,5 +200,46 @@ public class LongNum extends ExpressionUnit {
 
             return resultBuilder.toString();
         }
+    }
+
+    /**
+     * 取绝对值
+     *
+     * @param value 输入值
+     * @return 值为绝对值的新实例
+     */
+    public static LongNum abs(LongNum value) {
+        String a = value.toString(false);
+        if (a.startsWith("-")) {
+            a = a.substring(1);
+        }
+        return new LongNum(a);
+    }
+
+    /**
+     * 深度复制
+     *
+     * @param num 被复制项
+     * @return 一模一样的新实例
+     */
+    public static LongNum deepCopy(LongNum num) {
+        LongNum a = new LongNum();
+        a.strLiteralValue = num.strLiteralValue;
+        a.blnIsNegative = num.blnIsNegative;
+        a.intDecimalDigitCount = num.intDecimalDigitCount;
+        return a;
+    }
+
+    /**
+     * 取相反数
+     *
+     * @param num 输入值
+     * @return 值为相反数的新实例
+     */
+    public static LongNum reverse(LongNum num) {
+        LongNum a = LongNum.deepCopy(num);
+        if (!a.strLiteralValue.equals("0"))
+            a.blnIsNegative = !a.blnIsNegative;
+        return a;
     }
 }
