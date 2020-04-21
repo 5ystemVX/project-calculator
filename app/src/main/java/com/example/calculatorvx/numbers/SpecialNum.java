@@ -9,10 +9,15 @@ public class SpecialNum extends LongNum {
     }
 
     public static SpecialNum PAI() {
-        return new SpecialNum("3.141592653589");
+        SpecialNum num = new SpecialNum("3.141592653589");
+        num.isConserved = true;
+        return num;
     }
 
     public static SpecialNum E() {
-        return new SpecialNum("2.718281828459");
+        SpecialNum num = new SpecialNum("2.718281828459");
+        num.isConserved = true;
+        return num;
     }
+
 }
