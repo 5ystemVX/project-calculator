@@ -9,6 +9,9 @@ public class PowCalculation extends Calculation {
     private ExpressionUnit base;
     private int top;
 
+    private PowCalculation() {
+    }
+
     public PowCalculation(ExpressionUnit base, int top) {
         this.base = base;
         this.top = top;
