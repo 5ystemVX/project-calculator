@@ -7,5 +7,7 @@ public interface ExpressionUnitInterface {
 
     public boolean isConserved();
 
+    public LongNum calculateNum();
+
     public String getValue();
 }

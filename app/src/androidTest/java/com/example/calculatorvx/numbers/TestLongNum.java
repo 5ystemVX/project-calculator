@@ -27,8 +27,8 @@ public class TestLongNum {
         for (int i = 0; i < validSequence.length; i++) {
             flag = test.setValue(validSequence[i]);
             assertTrue(flag);
-            assertEquals(result1[i], test.toString(false));
-            System.out.println(test.toString(true));
+            assertEquals(result1[i], test.getValue(false));
+            System.out.println(test.getValue(true));
         }
 
         for (String number : invalidSequence) {
@@ -47,15 +47,15 @@ public class TestLongNum {
         LongNum test = new LongNum();
         for (int i = 0; i < testSequence.length; i++) {
             test.setValue(testSequence[i]);
-            LongNum reverseNum = LongNum.reverse(test);
+            LongNum reverseNum = LongNum.negate(test);
             LongNum absNum = LongNum.abs(test);
             LongNum copy = LongNum.deepCopy(test);
             assertNotEquals(reverseNum, test);
             assertNotEquals(absNum, test);
             assertNotEquals(copy, test);
-            assertEquals(reverse[i], reverseNum.toString(false));
-            assertEquals(abs[i], absNum.toString(false));
-            assertEquals(testSequence[i], copy.toString(false));
+            assertEquals(reverse[i], reverseNum.getValue(false));
+            assertEquals(abs[i], absNum.getValue(false));
+            assertEquals(testSequence[i], copy.getValue(false));
         }
 
     }

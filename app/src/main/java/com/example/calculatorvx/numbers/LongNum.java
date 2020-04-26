@@ -22,6 +22,15 @@ public class LongNum extends ExpressionUnit implements ExpressionUnitInterface {
     public LongNum() {
     }
 
+    public LongNum(BigDecimal value) {
+        this.value = value;
+    }
+
+    public static LongNum sub(LongNum op1, LongNum op2) {
+        BigDecimal result = op1.value.subtract(op2.value);
+        return new LongNum(result);
+    }
+
     public boolean isConserved() {
         return isConserved;
     }
@@ -54,13 +63,6 @@ public class LongNum extends ExpressionUnit implements ExpressionUnitInterface {
         return true;
     }
 
-    public String debugDump() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("LiteralValue-");
-        builder.append(value.toString());
-        return builder.toString();
-    }
-
     public String toSting() {
         return value.toString();
     }
@@ -72,6 +74,7 @@ public class LongNum extends ExpressionUnit implements ExpressionUnitInterface {
 
     /**
      * 取绝对值
+     *
      * @param num 输入值
      * @return 值为绝对值的新实例
      */
@@ -83,6 +86,7 @@ public class LongNum extends ExpressionUnit implements ExpressionUnitInterface {
 
     /**
      * 深度复制
+     *
      * @param num 被复制项
      * @return 一模一样的新实例
      */
@@ -94,6 +98,7 @@ public class LongNum extends ExpressionUnit implements ExpressionUnitInterface {
 
     /**
      * 取相反数
+     *
      * @param num 输入值
      * @return 值为相反数的新实例
      */
@@ -115,5 +120,37 @@ public class LongNum extends ExpressionUnit implements ExpressionUnitInterface {
 
     public BigDecimal getRaw() {
         return this.value;
+    }
+
+    public static LongNum add(LongNum op1, LongNum op2) {
+        BigDecimal result = op1.value.add(op2.value);
+        return new LongNum(result);
+    }
+
+    public static LongNum mul(LongNum op1, LongNum op2) {
+        BigDecimal result = op1.value.multiply(op2.value);
+        return new LongNum(result);
+    }
+
+    public static LongNum divide(LongNum op1, LongNum op2) {
+        BigDecimal result = op1.value.divide(op2.value);
+        return new LongNum(result);
+    }
+
+    public static LongNum pow(LongNum op1, int op2) {
+        BigDecimal result = op1.value.pow(op2);
+        return new LongNum(result);
+    }
+
+    public static LongNum sqrt(LongNum op1) {
+        double result = Math.sqrt(op1.value.doubleValue());
+        LongNum out = new LongNum();
+        out.value = new BigDecimal(result);
+        return out;
+    }
+
+    @Override
+    public LongNum calculateNum() {
+        return this;
     }
 }
