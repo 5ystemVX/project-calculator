@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CalculatorPanelActivity">
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/GridLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:orientation="horizontal"
+        android:rowCount="5">
+
+        <TextView
+            android:layout_columnSpan="4"
+            android:layout_gravity="fill"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#FFCCCC"
+            android:text="0"
+            android:textSize="50sp" />
+
+        <Button
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill"
+            android:text="回退" />
+
+        <Button
+            android:layout_columnSpan="2"
+            android:layout_gravity="fill"
+            android:text="清空" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="+" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="1" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="2" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="3" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="-" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="4" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="5" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="6" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="*" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="7" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="8" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="9" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="/" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_gravity="fill"
+            android:text="." />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="0" />
+
+        <Button
+            android:layout_gravity="fill"
+            android:text="=" />
+
+    </GridLayout>
+    ————————————————
+    版权声明：本文为CSDN博主「蚩尤后裔」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+    原文链接：https://blog.csdn.net/wangmx1993328/java/article/details/82770910
+</androidx.constraintlayout.widget.ConstraintLayout>
