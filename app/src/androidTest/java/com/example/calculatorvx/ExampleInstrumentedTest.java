@@ -5,6 +5,9 @@ import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,5 +26,12 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
         assertEquals("com.example.calculatorvx", appContext.getPackageName());
+
+        Expression e = new ExpressionBuilder("2+3+x").variable("x").build();
+
+
+        System.out.println(e.toString());
+
+
     }
 }
