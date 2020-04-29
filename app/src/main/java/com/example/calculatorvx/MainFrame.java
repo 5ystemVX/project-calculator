@@ -308,30 +308,30 @@ public class MainFrame {
                                 output.remove(output.size() - 2);
                                 break;
                             case "+":
-                                output.add(new Plus((Expression) output.get(output.size() - 2), (Expression) output.get((output.size() - 1))));
+                                output.add(new Plus((Expression) output.get(output.size() - 1), (Expression) output.get((output.size() - 2))));
                                 output.remove(output.size() - 2);
                                 output.remove(output.size() - 2);
 
                                 break;
                             case "-":
-                                output.add(new Minus((Expression) output.get(output.size() - 2), (Expression) output.get((output.size() - 1))));
+                                output.add(new Minus((Expression) output.get(output.size() - 1), (Expression) output.get((output.size() - 2))));
                                 output.remove(output.size() - 2);
                                 output.remove(output.size() - 2);
 
                                 break;
                             case "*":
-                                output.add(new Mult((Expression) output.get(output.size() - 2), (Expression) output.get((output.size() - 1))));
+                                output.add(new Mult((Expression) output.get(output.size() - 1), (Expression) output.get((output.size() - 2))));
                                 output.remove(output.size() - 2);
                                 output.remove(output.size() - 2);
                                 break;
                             case "frac":
                             case "/":
-                                output.add(new Div((Expression) output.get(output.size() - 2), (Expression) output.get((output.size() - 1))));
+                                output.add(new Div((Expression) output.get(output.size() - 1), (Expression) output.get((output.size() - 2))));
                                 output.remove(output.size() - 2);
                                 output.remove(output.size() - 2);
                                 break;
                             case "^":
-                                output.add(new Pow((Expression) output.get(output.size() - 2), (Expression) output.get((output.size() - 1))));
+                                output.add(new Pow((Expression) output.get(output.size() - 1), (Expression) output.get((output.size() - 2))));
                                 output.remove(output.size() - 2);
                                 output.remove(output.size() - 2);
                         }
